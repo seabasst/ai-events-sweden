@@ -9,11 +9,72 @@ import {
   ExternalLink,
   ArrowLeft,
   Tag,
+  Presentation,
+  BookOpen,
+  Wrench,
+  Globe,
+  Users2,
+  Video,
+  Code,
 } from "lucide-react";
 import { getEventBySlug, getUpcomingEvents } from "@/lib/notion";
 import CategoryPill from "@/components/CategoryPill";
 import EventCard from "@/components/EventCard";
 import ShareButton from "@/components/ShareButton";
+import type { EventType } from "@/lib/types";
+
+// Define colors and icons for each event type
+const eventTypeConfig: Record<EventType, { bg: string; text: string; border: string; icon: React.ElementType; label: string }> = {
+  Conference: {
+    bg: "bg-purple-50",
+    text: "text-purple-700",
+    border: "border-purple-200",
+    icon: Presentation,
+    label: "Multi-day event with speakers and networking",
+  },
+  Seminar: {
+    bg: "bg-blue-50",
+    text: "text-blue-700",
+    border: "border-blue-200",
+    icon: BookOpen,
+    label: "Educational presentation on a specific topic",
+  },
+  Workshop: {
+    bg: "bg-amber-50",
+    text: "text-amber-700",
+    border: "border-amber-200",
+    icon: Wrench,
+    label: "Hands-on, interactive learning session",
+  },
+  Summit: {
+    bg: "bg-indigo-50",
+    text: "text-indigo-700",
+    border: "border-indigo-200",
+    icon: Globe,
+    label: "High-level gathering of industry leaders",
+  },
+  Meetup: {
+    bg: "bg-green-50",
+    text: "text-green-700",
+    border: "border-green-200",
+    icon: Users2,
+    label: "Casual community gathering",
+  },
+  Webinar: {
+    bg: "bg-cyan-50",
+    text: "text-cyan-700",
+    border: "border-cyan-200",
+    icon: Video,
+    label: "Online presentation or workshop",
+  },
+  Hackathon: {
+    bg: "bg-rose-50",
+    text: "text-rose-700",
+    border: "border-rose-200",
+    icon: Code,
+    label: "Competitive coding or building event",
+  },
+};
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -81,6 +142,9 @@ export default async function EventPage({ params }: PageProps) {
 
   const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${startDate}/${endDate}&details=${eventDesc}&location=${eventLocation}`;
 
+  const typeConfig = eventTypeConfig[event.type] || eventTypeConfig.Meetup;
+  const TypeIcon = typeConfig.icon;
+
   return (
     <div className="min-h-screen bg-white">
       {/* Back button */}
@@ -106,6 +170,17 @@ export default async function EventPage({ params }: PageProps) {
           </div>
         )}
 
+        {/* Event Type Banner */}
+        <div className={`flex items-center gap-3 p-4 rounded-xl mb-6 ${typeConfig.bg} border ${typeConfig.border}`}>
+          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${typeConfig.bg} border ${typeConfig.border}`}>
+            <TypeIcon className={`w-6 h-6 ${typeConfig.text}`} />
+          </div>
+          <div>
+            <p className={`font-semibold ${typeConfig.text}`}>{event.type}</p>
+            <p className="text-sm text-gray-600">{typeConfig.label}</p>
+          </div>
+        </div>
+
         <div className="flex flex-wrap gap-2 mb-4">
           <span
             className={`px-3 py-1 text-sm font-medium rounded-lg ${
@@ -120,9 +195,6 @@ export default async function EventPage({ params }: PageProps) {
             {event.price === "Paid" && event.priceAmount
               ? ` - ${event.priceAmount} SEK`
               : ""}
-          </span>
-          <span className="px-3 py-1 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
-            {event.type}
           </span>
           <span className="px-3 py-1 text-sm font-medium rounded-lg bg-gray-100 text-gray-700">
             {event.language}

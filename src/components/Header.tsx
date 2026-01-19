@@ -16,12 +16,30 @@ export default function Header() {
             <span className="font-semibold text-gray-900">AI Events Sweden</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             <Link
               href="/events"
               className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               Events
+            </Link>
+            <Link
+              href="/organisers"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              Organisers
+            </Link>
+            <Link
+              href="/archives"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              Archives
+            </Link>
+            <Link
+              href="/register"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              Register
             </Link>
             <Link
               href="/submit"
@@ -53,6 +71,27 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Events
+              </Link>
+              <Link
+                href="/organisers"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Organisers
+              </Link>
+              <Link
+                href="/archives"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Archives
+              </Link>
+              <Link
+                href="/register"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Register
               </Link>
               <Link
                 href="/submit"

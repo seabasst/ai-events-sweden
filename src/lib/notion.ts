@@ -295,6 +295,83 @@ export async function getUpcomingEvents(limit = 10): Promise<AIEvent[]> {
     .map(pageToEvent);
 }
 
+export async function getPastEvents(filters?: EventFilters): Promise<AIEvent[]> {
+  if (!isConfigured()) {
+    return [];
+  }
+
+  const filterConditions: QueryDatabaseParameters["filter"] = {
+    and: [
+      {
+        property: "Status",
+        select: {
+          equals: "Published",
+        },
+      },
+      {
+        property: "Date",
+        date: {
+          before: new Date().toISOString().split("T")[0],
+        },
+      },
+    ],
+  };
+
+  if (filters) {
+    if (filters.city) {
+      (filterConditions.and as Array<object>).push({
+        property: "City",
+        select: { equals: filters.city },
+      });
+    }
+    if (filters.category) {
+      (filterConditions.and as Array<object>).push({
+        property: "Category",
+        multi_select: { contains: filters.category },
+      });
+    }
+    if (filters.type) {
+      (filterConditions.and as Array<object>).push({
+        property: "Type",
+        select: { equals: filters.type },
+      });
+    }
+    if (filters.price) {
+      (filterConditions.and as Array<object>).push({
+        property: "Price",
+        select: { equals: filters.price },
+      });
+    }
+  }
+
+  const response = await notion.databases.query({
+    database_id: databaseId,
+    filter: filterConditions,
+    sorts: [
+      {
+        property: "Date",
+        direction: "descending",
+      },
+    ],
+  });
+
+  let events = response.results
+    .filter((page): page is PageObjectResponse => "properties" in page)
+    .map(pageToEvent);
+
+  if (filters?.search) {
+    const searchLower = filters.search.toLowerCase();
+    events = events.filter(
+      (event) =>
+        event.name.toLowerCase().includes(searchLower) ||
+        event.description.toLowerCase().includes(searchLower) ||
+        event.organizer.toLowerCase().includes(searchLower)
+    );
+  }
+
+  return events;
+}
+
 export async function submitEvent(data: SubmitEventData): Promise<string> {
   if (!isConfigured()) {
     throw new Error("Notion is not configured");
