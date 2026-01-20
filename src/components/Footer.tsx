@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-blue-600" />
-              <span className="font-semibold text-gray-900">AI Events Sweden</span>
+              <span className="font-semibold text-gray-900">AI Journalen</span>
             </Link>
             <p className="text-gray-600 text-sm">
               Discover AI events across Sweden. From conferences to meetups,
@@ -68,7 +68,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-gray-200">
           <p className="text-gray-500 text-sm text-center">
-            {new Date().getFullYear()} AI Events Sweden. Built for the Swedish AI
+            {new Date().getFullYear()} AI Journalen. Built for the Swedish AI
             community.
           </p>
         </div>

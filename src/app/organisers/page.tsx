@@ -5,7 +5,7 @@ import { getEvents } from "@/lib/notion";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Organisers | AI Events Sweden",
+  title: "Organisers | AI Journalen",
   description: "Discover organisations hosting AI events across Sweden",
 };
 

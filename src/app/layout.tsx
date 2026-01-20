@@ -10,13 +10,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "AI Events Sweden - Discover AI Events Across Sweden",
-    template: "%s | AI Events Sweden",
+    default: "AI Journalen - Discover AI Events & News in Sweden",
+    template: "%s | AI Journalen",
   },
   description:
-    "Discover AI events across Sweden. From conferences to meetups, workshops to webinars, find your next opportunity to learn and connect in the Swedish AI community.",
+    "Discover AI events and news across Sweden. From conferences to meetups, workshops to webinars, find your next opportunity to learn and connect in the Swedish AI community.",
   keywords: [
     "AI events",
+    "AI news",
     "Sweden",
     "artificial intelligence",
     "machine learning",
@@ -26,20 +27,20 @@ export const metadata: Metadata = {
     "Göteborg",
     "Malmö",
   ],
-  authors: [{ name: "AI Events Sweden" }],
+  authors: [{ name: "AI Journalen" }],
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://aievents.se",
-    siteName: "AI Events Sweden",
-    title: "AI Events Sweden - Discover AI Events Across Sweden",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://aijournalen.se",
+    siteName: "AI Journalen",
+    title: "AI Journalen - Discover AI Events & News in Sweden",
     description:
-      "Discover AI events across Sweden. From conferences to meetups, find your next opportunity to learn and connect.",
+      "Discover AI events and news across Sweden. From conferences to meetups, find your next opportunity to learn and connect.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Events Sweden",
-    description: "Discover AI events across Sweden",
+    title: "AI Journalen",
+    description: "Discover AI events and news across Sweden",
   },
   robots: {
     index: true,

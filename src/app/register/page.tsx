@@ -215,7 +215,7 @@ export default function RegisterPage() {
           </button>
 
           <p className="text-center text-sm text-gray-500">
-            By registering, you agree to receive emails from AI Events Sweden.
+            By registering, you agree to receive emails from AI Journalen.
             You can unsubscribe at any time.
           </p>
         </form>

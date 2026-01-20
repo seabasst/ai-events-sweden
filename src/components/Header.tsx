@@ -13,7 +13,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
             <Sparkles className="w-6 h-6 text-blue-600" />
-            <span className="font-semibold text-gray-900">AI Events Sweden</span>
+            <span className="font-semibold text-gray-900">AI Journalen</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">

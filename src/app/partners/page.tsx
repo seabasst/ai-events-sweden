@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI Partners & Consultants | AI Events Sweden",
+  title: "AI Partners & Consultants | AI Journalen",
   description:
     "Discover Swedish companies specializing in AI implementation, automation, and digital transformation to help your business leverage artificial intelligence.",
 };
@@ -285,7 +285,7 @@ export default function PartnersPage() {
               to reach the Swedish AI community, get in touch with us.
             </p>
             <a
-              href="mailto:partners@aievents.se"
+              href="mailto:partners@aijournalen.se"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-colors"
             >
               Contact Us

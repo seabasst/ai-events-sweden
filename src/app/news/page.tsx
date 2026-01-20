@@ -6,7 +6,7 @@ import { getArticles } from "@/lib/notion-articles";
 import type { Article, ArticleCategory } from "@/lib/types";
 
 export const metadata: Metadata = {
-  title: "AI News | AI Events Sweden",
+  title: "AI News | AI Journalen",
   description:
     "Stay updated with the latest AI news, startup announcements, research breakthroughs, and industry insights from Sweden's AI ecosystem.",
 };

@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${article.title} | AI Events Sweden`,
+    title: `${article.title} | AI Journalen`,
     description: article.excerpt || article.content.slice(0, 160),
     openGraph: {
       title: article.title,

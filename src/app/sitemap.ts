@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getEvents } from "@/lib/notion";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://aievents.se";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://aijournalen.se";
 
   // Get all published events
   const events = await getEvents();

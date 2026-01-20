@@ -8,7 +8,7 @@ import CategoryPill from "@/components/CategoryPill";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Archives | AI Events Sweden",
+  title: "Archives | AI Journalen",
   description: "Browse past AI events that have taken place across Sweden",
 };
 
