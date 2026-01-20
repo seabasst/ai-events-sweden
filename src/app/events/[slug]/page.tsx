@@ -279,7 +279,7 @@ export default async function EventPage({ params }: PageProps) {
 
           {/* Action Sidebar */}
           <div className="space-y-4">
-            {event.url && isSpecificEventUrl(event.url) ? (
+            {event.url && (
               <a
                 href={event.url}
                 target="_blank"
@@ -287,13 +287,8 @@ export default async function EventPage({ params }: PageProps) {
                 className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors"
               >
                 <ExternalLink className="w-4 h-4" />
-                Visit Event Page
+                {isSpecificEventUrl(event.url) ? "Visit Event Page" : "Visit Organizer Website"}
               </a>
-            ) : (
-              <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800">
-                <p className="font-medium">Direct link not available</p>
-                <p className="text-amber-600 mt-1">Search for this event on the organizer&apos;s website.</p>
-              </div>
             )}
 
             <a
