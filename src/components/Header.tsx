@@ -30,16 +30,16 @@ export default function Header() {
               Organisers
             </Link>
             <Link
+              href="/partners"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              Partners
+            </Link>
+            <Link
               href="/archives"
               className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               Archives
-            </Link>
-            <Link
-              href="/register"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Register
             </Link>
             <Link
               href="/submit"
@@ -80,18 +80,18 @@ export default function Header() {
                 Organisers
               </Link>
               <Link
+                href="/partners"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Partners
+              </Link>
+              <Link
                 href="/archives"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Archives
-              </Link>
-              <Link
-                href="/register"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Register
               </Link>
               <Link
                 href="/submit"

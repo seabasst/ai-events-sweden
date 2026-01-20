@@ -30,7 +30,51 @@ function generateSlug(name: string, id: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
-  return `${baseSlug}-${id.slice(0, 8)}`;
+  // Use last 12 characters of ID (without dashes) for uniqueness
+  const idWithoutDashes = id.replace(/-/g, "");
+  const uniqueId = idWithoutDashes.slice(-12);
+  return `${baseSlug}-${uniqueId}`;
+}
+
+// Blocked aggregator/spam domains - events from these sites are hidden entirely
+const blockedDomains = [
+  "allconferencealert.com",
+  "allconferencealerts.com",
+  "conferencealert.com",
+  "conferenceindex.org",
+  "10times.com",
+];
+
+// Check if event should be completely hidden (spam/aggregator sites)
+function shouldHideEvent(url: string): boolean {
+  if (!url) return false;
+  const lowerUrl = url.toLowerCase();
+  return blockedDomains.some((domain) => lowerUrl.includes(domain));
+}
+
+// Patterns that indicate a generic listing page (not a specific event)
+const genericListingPatterns = [
+  /\/events\/?$/i,                    // Ends with /events or /events/
+  /\/events\/?\?/i,                   // /events with query params
+  /\/upcoming\/?$/i,                  // Ends with /upcoming
+  /\/calendar\/?$/i,                  // Ends with /calendar
+  /\/all-events\/?$/i,                // Ends with /all-events
+  /eventbrite\.com\/d\//i,            // Eventbrite search pages
+  /meetup\.com\/find\//i,             // Meetup search pages
+];
+
+// Check if URL points to a specific event page (exported for use in components)
+export function isSpecificEventUrl(url: string): boolean {
+  if (!url) return false;
+
+  // Check for generic listing page patterns
+  for (const pattern of genericListingPatterns) {
+    if (pattern.test(url)) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function getPropertyValue(
@@ -173,7 +217,8 @@ export async function getEvents(filters?: EventFilters): Promise<AIEvent[]> {
 
   let events = response.results
     .filter((page): page is PageObjectResponse => "properties" in page)
-    .map(pageToEvent);
+    .map(pageToEvent)
+    .filter((event) => !shouldHideEvent(event.url)); // Filter out invalid URLs
 
   if (filters?.search) {
     const searchLower = filters.search.toLowerCase();
@@ -193,8 +238,9 @@ export async function getEventBySlug(slug: string): Promise<AIEvent | null> {
     return null;
   }
 
+  // Extract the last 12 characters (the unique ID part)
   const idPart = slug.split("-").pop();
-  if (!idPart) return null;
+  if (!idPart || idPart.length < 12) return null;
 
   const response = await notion.databases.query({
     database_id: databaseId,
@@ -208,7 +254,7 @@ export async function getEventBySlug(slug: string): Promise<AIEvent | null> {
 
   const page = response.results
     .filter((p): p is PageObjectResponse => "properties" in p)
-    .find((p) => p.id.replace(/-/g, "").startsWith(idPart));
+    .find((p) => p.id.replace(/-/g, "").endsWith(idPart));
 
   if (!page) return null;
 
@@ -255,7 +301,8 @@ export async function getFeaturedEvents(): Promise<AIEvent[]> {
 
   return response.results
     .filter((page): page is PageObjectResponse => "properties" in page)
-    .map(pageToEvent);
+    .map(pageToEvent)
+    .filter((event) => !shouldHideEvent(event.url));
 }
 
 export async function getUpcomingEvents(limit = 10): Promise<AIEvent[]> {
@@ -292,7 +339,8 @@ export async function getUpcomingEvents(limit = 10): Promise<AIEvent[]> {
 
   return response.results
     .filter((page): page is PageObjectResponse => "properties" in page)
-    .map(pageToEvent);
+    .map(pageToEvent)
+    .filter((event) => !shouldHideEvent(event.url));
 }
 
 export async function getPastEvents(filters?: EventFilters): Promise<AIEvent[]> {
@@ -357,7 +405,8 @@ export async function getPastEvents(filters?: EventFilters): Promise<AIEvent[]> 
 
   let events = response.results
     .filter((page): page is PageObjectResponse => "properties" in page)
-    .map(pageToEvent);
+    .map(pageToEvent)
+    .filter((event) => !shouldHideEvent(event.url)); // Filter out invalid URLs
 
   if (filters?.search) {
     const searchLower = filters.search.toLowerCase();

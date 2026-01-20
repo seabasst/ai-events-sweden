@@ -66,8 +66,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             </h1>
 
             <p className="text-lg sm:text-xl text-blue-100 leading-relaxed mb-8 max-w-3xl">
-              Sweden has become a hotbed for AI innovation, with companies like <span className="text-white font-semibold">Lovable</span>, <span className="text-white font-semibold">Klarna AI</span>, and <span className="text-white font-semibold">ElevenLabs</span> leading the charge.
-              From Stockholm&apos;s tech hubs to Gothenburg&apos;s research centers, Swedish AI startups are raising record funding rounds and pushing the boundaries of what&apos;s possible.
+              Sweden ranks <span className="text-white font-semibold">#1 in Europe</span> for starting an AI business. Companies like <span className="text-white font-semibold">Lovable</span> (valued at $6.6B), <span className="text-white font-semibold">Sana</span>, and <span className="text-white font-semibold">Einride</span> are putting Stockholm on the global AI map.
+              Swedish AI startups tripled their funding in 2025, raising over €450M across 28 deals.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
@@ -76,8 +76,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                   <TrendingUp className="w-5 h-5 text-green-400" />
                 </div>
                 <div>
-                  <p className="font-semibold text-white">$2B+ Raised</p>
-                  <p className="text-sm text-blue-200">AI funding in 2024</p>
+                  <p className="font-semibold text-white">€450M+ Raised</p>
+                  <p className="text-sm text-blue-200">AI funding in 2025</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
@@ -85,8 +85,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                   <Rocket className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
-                  <p className="font-semibold text-white">500+ Startups</p>
-                  <p className="text-sm text-blue-200">AI-focused companies</p>
+                  <p className="font-semibold text-white">209 AI Startups</p>
+                  <p className="text-sm text-blue-200">In the Swedish ecosystem</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
@@ -94,8 +94,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                   <Users className="w-5 h-5 text-purple-400" />
                 </div>
                 <div>
-                  <p className="font-semibold text-white">Growing Community</p>
-                  <p className="text-sm text-blue-200">Meetups & events</p>
+                  <p className="font-semibold text-white">41 Unicorns</p>
+                  <p className="text-sm text-blue-200">Swedish tech companies</p>
                 </div>
               </div>
             </div>

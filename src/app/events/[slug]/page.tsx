@@ -17,7 +17,8 @@ import {
   Video,
   Code,
 } from "lucide-react";
-import { getEventBySlug, getUpcomingEvents } from "@/lib/notion";
+import { getEventBySlug, getUpcomingEvents, isSpecificEventUrl } from "@/lib/notion";
+import OrganizerLogo from "@/components/OrganizerLogo";
 import CategoryPill from "@/components/CategoryPill";
 import EventCard from "@/components/EventCard";
 import ShareButton from "@/components/ShareButton";
@@ -245,7 +246,11 @@ export default async function EventPage({ params }: PageProps) {
             {event.organizer && (
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Users className="w-5 h-5 text-purple-600" />
+                  {event.url ? (
+                    <OrganizerLogo url={event.url} organizer={event.organizer} size="md" />
+                  ) : (
+                    <Users className="w-5 h-5 text-purple-600" />
+                  )}
                 </div>
                 <div>
                   <p className="text-gray-500 text-sm">Organized by</p>
@@ -274,7 +279,7 @@ export default async function EventPage({ params }: PageProps) {
 
           {/* Action Sidebar */}
           <div className="space-y-4">
-            {event.url && (
+            {event.url && isSpecificEventUrl(event.url) ? (
               <a
                 href={event.url}
                 target="_blank"
@@ -284,6 +289,11 @@ export default async function EventPage({ params }: PageProps) {
                 <ExternalLink className="w-4 h-4" />
                 Visit Event Page
               </a>
+            ) : (
+              <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800">
+                <p className="font-medium">Direct link not available</p>
+                <p className="text-amber-600 mt-1">Search for this event on the organizer&apos;s website.</p>
+              </div>
             )}
 
             <a
