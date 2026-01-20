@@ -83,3 +83,37 @@ export interface SubmitEventData {
   priceAmount?: number;
   language: Language;
 }
+
+// Article types
+export type ArticleCategory =
+  | "Industry News"
+  | "Startup News"
+  | "Research"
+  | "Opinion"
+  | "Tutorial"
+  | "Event Recap";
+
+export type ArticleTag =
+  | "AI"
+  | "Machine Learning"
+  | "Startups"
+  | "Sweden"
+  | "Funding"
+  | "LLMs";
+
+export type ArticleStatus = "Draft" | "Published";
+
+export interface Article {
+  id: string;
+  slug: string;
+  title: string;
+  content: string;
+  excerpt: string;
+  publishedDate: string;
+  author: string;
+  category: ArticleCategory;
+  tags: ArticleTag[];
+  imageUrl?: string;
+  status: ArticleStatus;
+  featured: boolean;
+}

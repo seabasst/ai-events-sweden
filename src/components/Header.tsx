@@ -24,6 +24,12 @@ export default function Header() {
               Events
             </Link>
             <Link
+              href="/news"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              News
+            </Link>
+            <Link
               href="/organisers"
               className="text-gray-600 hover:text-gray-900 transition-colors"
             >
@@ -71,6 +77,13 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Events
+              </Link>
+              <Link
+                href="/news"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                News
               </Link>
               <Link
                 href="/organisers"
