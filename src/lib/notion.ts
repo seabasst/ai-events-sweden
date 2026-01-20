@@ -43,6 +43,10 @@ const blockedDomains = [
   "conferencealert.com",
   "conferenceindex.org",
   "10times.com",
+  "eventbrite.com",
+  "eventbrite.se",
+  "eventbrite.ie",
+  "eventbrite.co.uk",
 ];
 
 // Check if event should be completely hidden (spam/aggregator sites)
