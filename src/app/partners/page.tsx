@@ -1,16 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import {
-  Sparkles,
-  ExternalLink,
-  BarChart3,
-  Brain,
-  Megaphone,
-  ShoppingCart,
-  LineChart,
-  Zap,
-  ArrowRight,
-} from "lucide-react";
+import { ExternalLink, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "AI Partners & Consultants | AI Journalen",
@@ -24,8 +13,6 @@ interface Partner {
   description: string;
   services: string[];
   url: string;
-  icon: React.ElementType;
-  color: string;
   highlight?: string;
 }
 
@@ -35,15 +22,8 @@ const partners: Partner[] = [
     tagline: "Agentic Omnichannel Commerce Analytics",
     description:
       "AI-powered commerce intelligence platform with real-time analytics. Their AI agent enables natural language queries across your commerce data, automatically generating dashboards and actionable insights without SQL knowledge.",
-    services: [
-      "Commerce Analytics",
-      "Marketing Mix Modeling",
-      "Profit Prediction",
-      "AI-powered Insights",
-    ],
+    services: ["Commerce Analytics", "Marketing Mix Modeling", "Profit Prediction", "AI-powered Insights"],
     url: "https://dema.ai",
-    icon: BarChart3,
-    color: "blue",
     highlight: "83% contribution margin growth for clients",
   },
   {
@@ -51,15 +31,8 @@ const partners: Partner[] = [
     tagline: "Agentic AI for Marketing",
     description:
       "AI operating system for marketing agencies featuring Lucy, a platform that coordinates 20+ autonomous AI agents across data, creative, and strategy. Founded by ex-Google and Spotify executives.",
-    services: [
-      "Marketing Automation",
-      "AI Agents",
-      "Campaign Optimization",
-      "Workflow Automation",
-    ],
+    services: ["Marketing Automation", "AI Agents", "Campaign Optimization", "Workflow Automation"],
     url: "https://epiminds.com",
-    icon: Megaphone,
-    color: "purple",
     highlight: "$6.6M raised from Lightspeed",
   },
   {
@@ -67,231 +40,116 @@ const partners: Partner[] = [
     tagline: "Agentic AI & Automation for Digital Growth",
     description:
       "AI-powered solutions for eCommerce businesses. Automates copywriting, translations, product enrichment, and keyword research with continuous learning from human validation.",
-    services: [
-      "eCommerce AI",
-      "Automated Copywriting",
-      "SEO Optimization",
-      "Product Data Enrichment",
-    ],
+    services: ["eCommerce AI", "Automated Copywriting", "SEO Optimization", "Product Data Enrichment"],
     url: "https://etals.com",
-    icon: ShoppingCart,
-    color: "green",
   },
   {
     name: "Normain",
     tagline: "The Extractional AI Platform",
     description:
       "Specialized AI platform focused on intelligent data extraction capabilities. Helps businesses automate the extraction and processing of information from various sources.",
-    services: [
-      "Data Extraction",
-      "Document Processing",
-      "AI Automation",
-      "Information Processing",
-    ],
+    services: ["Data Extraction", "Document Processing", "AI Automation", "Information Processing"],
     url: "https://normain.com",
-    icon: Brain,
-    color: "orange",
   },
   {
     name: "Kiri Media",
     tagline: "Proven Creative Strategy. Expert Execution.",
     description:
       "Performance-focused agency combining marketing expertise with AI & analytics. Implements AI systems including MCP servers and AI agents for real-time marketing and sales analysis.",
-    services: [
-      "Performance Marketing",
-      "AI Implementation",
-      "Growth Strategy",
-      "Analytics Systems",
-    ],
+    services: ["Performance Marketing", "AI Implementation", "Growth Strategy", "Analytics Systems"],
     url: "https://kirimedia.co",
-    icon: LineChart,
-    color: "rose",
     highlight: "Stockholm-based agency",
   },
 ];
 
-const colorClasses: Record<string, { bg: string; border: string; text: string; light: string }> = {
-  blue: {
-    bg: "bg-blue-600",
-    border: "border-blue-200",
-    text: "text-blue-600",
-    light: "bg-blue-50",
-  },
-  purple: {
-    bg: "bg-purple-600",
-    border: "border-purple-200",
-    text: "text-purple-600",
-    light: "bg-purple-50",
-  },
-  green: {
-    bg: "bg-green-600",
-    border: "border-green-200",
-    text: "text-green-600",
-    light: "bg-green-50",
-  },
-  orange: {
-    bg: "bg-orange-500",
-    border: "border-orange-200",
-    text: "text-orange-600",
-    light: "bg-orange-50",
-  },
-  rose: {
-    bg: "bg-rose-600",
-    border: "border-rose-200",
-    text: "text-rose-600",
-    light: "bg-rose-50",
-  },
-};
-
 export default function PartnersPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50/50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium mb-6">
-              <Zap className="w-4 h-4 text-yellow-400" />
-              <span>AI Implementation Partners</span>
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 tracking-tight">
-              Get help implementing AI in your business
+      <section className="bg-white border-b border-neutral-200/80">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+          <div className="max-w-2xl">
+            <h1 className="text-[32px] sm:text-[40px] font-semibold text-neutral-900 mb-4 tracking-tight leading-[1.1]">
+              AI Implementation Partners
             </h1>
-
-            <p className="text-lg sm:text-xl text-slate-300 leading-relaxed mb-8">
-              These Swedish companies specialize in AI workflows, automation, and
-              digital transformation. Whether you need marketing AI, commerce
-              analytics, or custom AI solutions, they can help you get started.
+            <p className="text-[17px] text-neutral-600 leading-relaxed">
+              Swedish companies specializing in AI workflows, automation, and digital transformation.
+              Find the right expertise for your needs.
             </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="#partners"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-xl font-semibold hover:bg-slate-100 transition-colors"
-              >
-                View Partners
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 border border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-colors"
-              >
-                Browse Events
-              </Link>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Partners Grid */}
-      <section id="partners" className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-            AI Companies & Consultants
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Trusted partners helping Swedish businesses adopt AI and automation
-            solutions. From marketing to eCommerce, find the right expertise for
-            your needs.
-          </p>
-        </div>
+      {/* Partners List */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+        <p className="text-[13px] text-neutral-500 mb-6">
+          {partners.length} partner{partners.length !== 1 ? "s" : ""}
+        </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {partners.map((partner) => {
-            const colors = colorClasses[partner.color];
-            const Icon = partner.icon;
-
-            return (
-              <article
-                key={partner.name}
-                className={`bg-white rounded-2xl border ${colors.border} overflow-hidden hover:shadow-lg transition-all duration-300 group`}
-              >
-                <div className="p-6">
-                  {/* Header */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-4">
-                      <div
-                        className={`w-14 h-14 ${colors.light} rounded-xl flex items-center justify-center`}
-                      >
-                        <Icon className={`w-7 h-7 ${colors.text}`} />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                          {partner.name}
-                        </h3>
-                        <p className={`text-sm font-medium ${colors.text}`}>
-                          {partner.tagline}
-                        </p>
-                      </div>
-                    </div>
+        <div className="space-y-4">
+          {partners.map((partner) => (
+            <article
+              key={partner.name}
+              className="group bg-white rounded-lg border border-neutral-200/80 hover:border-neutral-300 p-5 sm:p-6 transition-all duration-300 hover:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)]"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
+                    <h3 className="text-[15px] font-semibold text-neutral-900">{partner.name}</h3>
+                    <span className="text-[13px] text-neutral-500">{partner.tagline}</span>
                   </div>
 
-                  {/* Highlight Badge */}
                   {partner.highlight && (
-                    <div className="mb-4">
-                      <span
-                        className={`inline-flex items-center gap-1 px-3 py-1 ${colors.light} ${colors.text} text-xs font-semibold rounded-full`}
-                      >
-                        <Sparkles className="w-3 h-3" />
-                        {partner.highlight}
-                      </span>
-                    </div>
+                    <p className="text-[12px] text-emerald-600 font-medium mb-2.5">
+                      {partner.highlight}
+                    </p>
                   )}
 
-                  {/* Description */}
-                  <p className="text-gray-600 mb-4 leading-relaxed">
+                  <p className="text-[13px] text-neutral-600 mb-4 line-clamp-2 leading-relaxed">
                     {partner.description}
                   </p>
 
-                  {/* Services */}
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-1.5">
                     {partner.services.map((service) => (
                       <span
                         key={service}
-                        className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg"
+                        className="px-2.5 py-1 bg-neutral-100 text-neutral-600 text-[12px] rounded-md"
                       >
                         {service}
                       </span>
                     ))}
                   </div>
-
-                  {/* CTA */}
-                  <a
-                    href={partner.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 px-5 py-2.5 ${colors.bg} text-white rounded-xl font-medium hover:opacity-90 transition-opacity`}
-                  >
-                    Visit Website
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
                 </div>
-              </article>
-            );
-          })}
+
+                <a
+                  href={partner.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[13px] text-neutral-500 hover:text-neutral-900 transition-colors duration-200 whitespace-nowrap sm:mt-1"
+                >
+                  Visit website
+                  <ExternalLink className="w-3.5 h-3.5" strokeWidth={1.5} />
+                </a>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-white border-t border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 sm:p-12 text-center text-white">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-              Want to be listed here?
-            </h2>
-            <p className="text-blue-100 mb-8 max-w-xl mx-auto">
-              If your company helps businesses implement AI solutions and you want
-              to reach the Swedish AI community, get in touch with us.
-            </p>
-            <a
-              href="mailto:partners@aijournalen.se"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-colors"
-            >
-              Contact Us
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+        <div className="bg-white border border-neutral-200/80 rounded-lg p-8 sm:p-10 text-center">
+          <h2 className="text-[17px] font-semibold text-neutral-900 mb-2">Want to be listed here?</h2>
+          <p className="text-[14px] text-neutral-500 mb-6 max-w-md mx-auto">
+            If your company helps businesses implement AI solutions, get in touch.
+          </p>
+          <a
+            href="mailto:partners@aijournalen.se"
+            className="inline-flex items-center gap-2 h-10 px-5 bg-neutral-900 text-white text-[13px] font-medium rounded-md hover:bg-neutral-800 transition-all duration-200"
+          >
+            Contact Us
+            <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+          </a>
         </div>
       </section>
     </div>

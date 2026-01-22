@@ -8,93 +8,98 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-200/80">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-14">
-          <Link href="/" className="font-medium text-gray-900 hover:text-gray-600 transition-colors">
+        <div className="flex items-center justify-between h-16">
+          <Link
+            href="/"
+            className="text-[15px] font-semibold text-neutral-900 hover:text-neutral-600 transition-colors duration-200"
+          >
             AI Journalen
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-1">
             <Link
               href="/events"
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="px-3 py-2 text-[13px] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
             >
               Events
             </Link>
             <Link
               href="/news"
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="px-3 py-2 text-[13px] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
             >
-              News
+              All News
             </Link>
             <Link
               href="/organisers"
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="px-3 py-2 text-[13px] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
             >
               Organisers
             </Link>
             <Link
               href="/partners"
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="px-3 py-2 text-[13px] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
             >
               Partners
             </Link>
+            <div className="w-px h-5 bg-neutral-200 mx-2" />
             <Link
               href="/submit"
-              className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors"
+              className="px-3.5 py-1.5 text-[13px] font-medium text-neutral-900 bg-neutral-100 hover:bg-neutral-200 rounded-md transition-all duration-200"
             >
               Submit Event
             </Link>
           </nav>
 
           <button
-            className="md:hidden p-2 -mr-2"
+            className="md:hidden p-2 -mr-2 text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
-              <X className="w-5 h-5 text-gray-600" />
+              <X className="w-5 h-5" strokeWidth={1.5} />
             ) : (
-              <Menu className="w-5 h-5 text-gray-600" />
+              <Menu className="w-5 h-5" strokeWidth={1.5} />
             )}
           </button>
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
-            <nav className="flex flex-col gap-3">
+          <div className="md:hidden py-3 border-t border-neutral-100 animate-fade-in">
+            <nav className="flex flex-col">
               <Link
                 href="/events"
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors py-1"
+                className="px-3 py-2.5 text-[14px] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Events
               </Link>
               <Link
                 href="/news"
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors py-1"
+                className="px-3 py-2.5 text-[14px] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
-                News
+                All News
               </Link>
               <Link
                 href="/organisers"
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors py-1"
+                className="px-3 py-2.5 text-[14px] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Organisers
               </Link>
               <Link
                 href="/partners"
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors py-1"
+                className="px-3 py-2.5 text-[14px] text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Partners
               </Link>
+              <div className="h-px bg-neutral-100 my-2" />
               <Link
                 href="/submit"
-                className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors py-1"
+                className="px-3 py-2.5 text-[14px] font-medium text-neutral-900 hover:bg-neutral-50 rounded-md transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Submit Event

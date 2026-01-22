@@ -40,7 +40,6 @@ const eventTypes: EventType[] = [
 
 const prices: Price[] = ["Free", "Paid", "Freemium"];
 
-// Generate month options for the next 12 months
 function getMonthOptions(): { value: string; label: string }[] {
   const months: { value: string; label: string }[] = [];
   const now = new Date();
@@ -64,7 +63,7 @@ interface FilterBarProps {
 export default function FilterBar({
   basePath,
   showDateFilter = true,
-  showTypeFilter = true
+  showTypeFilter = true,
 }: FilterBarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -96,18 +95,20 @@ export default function FilterBar({
     router.push(targetPath);
   }, [router, targetPath]);
 
-  const hasFilters = currentCity || currentCategory || currentType || currentPrice || currentMonth;
+  const hasFilters =
+    currentCity || currentCategory || currentType || currentPrice || currentMonth;
 
   const monthOptions = getMonthOptions();
 
-  const selectClass = "px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg text-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-300 cursor-pointer";
+  const selectClass =
+    "h-9 px-3 text-[13px] bg-white border border-neutral-200 rounded-md text-neutral-600 hover:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:border-neutral-300 cursor-pointer transition-all duration-200";
 
   return (
     <div className="flex flex-wrap items-center gap-2">
       <select
         value={currentCity || ""}
         onChange={(e) => updateFilter("city", e.target.value || null)}
-        className={selectClass}
+        className={`${selectClass} ${currentCity ? "border-neutral-400 bg-neutral-50" : ""}`}
       >
         <option value="">City</option>
         {cities.map((city) => (
@@ -121,7 +122,7 @@ export default function FilterBar({
         <select
           value={currentMonth || ""}
           onChange={(e) => updateFilter("month", e.target.value || null)}
-          className={selectClass}
+          className={`${selectClass} ${currentMonth ? "border-neutral-400 bg-neutral-50" : ""}`}
         >
           <option value="">Month</option>
           {monthOptions.map((month) => (
@@ -135,7 +136,7 @@ export default function FilterBar({
       <select
         value={currentCategory || ""}
         onChange={(e) => updateFilter("category", e.target.value || null)}
-        className={selectClass}
+        className={`${selectClass} ${currentCategory ? "border-neutral-400 bg-neutral-50" : ""}`}
       >
         <option value="">Category</option>
         {categories.map((category) => (
@@ -149,7 +150,7 @@ export default function FilterBar({
         <select
           value={currentType || ""}
           onChange={(e) => updateFilter("type", e.target.value || null)}
-          className={selectClass}
+          className={`${selectClass} ${currentType ? "border-neutral-400 bg-neutral-50" : ""}`}
         >
           <option value="">Type</option>
           {eventTypes.map((type) => (
@@ -163,7 +164,7 @@ export default function FilterBar({
       <select
         value={currentPrice || ""}
         onChange={(e) => updateFilter("price", e.target.value || null)}
-        className={selectClass}
+        className={`${selectClass} ${currentPrice ? "border-neutral-400 bg-neutral-50" : ""}`}
       >
         <option value="">Price</option>
         {prices.map((price) => (
@@ -176,9 +177,9 @@ export default function FilterBar({
       {hasFilters && (
         <button
           onClick={clearAllFilters}
-          className="flex items-center gap-1 px-3 py-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+          className="flex items-center gap-1.5 h-9 px-3 text-[13px] text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 rounded-md transition-all duration-200"
         >
-          <X className="w-3.5 h-3.5" />
+          <X className="w-3.5 h-3.5" strokeWidth={1.5} />
           Clear
         </button>
       )}

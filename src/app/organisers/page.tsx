@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Building2, Calendar, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { getEvents } from "@/lib/notion";
 
 export const revalidate = 300;
@@ -23,7 +23,6 @@ interface OrganiserData {
 export default async function OrganisersPage() {
   const events = await getEvents();
 
-  // Extract unique organisers with their event counts and cities
   const organiserMap = new Map<string, OrganiserData>();
 
   events.forEach((event) => {
@@ -36,8 +35,10 @@ export default async function OrganisersPage() {
       if (!existing.cities.includes(event.city)) {
         existing.cities.push(event.city);
       }
-      // Update upcoming event if this one is sooner
-      if (!existing.upcomingEvent || new Date(event.date) < new Date(existing.upcomingEvent.date)) {
+      if (
+        !existing.upcomingEvent ||
+        new Date(event.date) < new Date(existing.upcomingEvent.date)
+      ) {
         existing.upcomingEvent = {
           name: event.name,
           date: event.date,
@@ -63,125 +64,116 @@ export default async function OrganisersPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50/50">
       {/* Header */}
-      <section className="bg-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Event Organisers
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl">
-            Meet the organisations and communities driving AI events across Sweden.
-            From tech companies to research institutions, these are the people bringing
-            the AI community together.
-          </p>
+      <section className="bg-white border-b border-neutral-200/80">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+          <div className="max-w-2xl">
+            <h1 className="text-[32px] sm:text-[40px] font-semibold text-neutral-900 mb-4 tracking-tight leading-[1.1]">
+              Event Organisers
+            </h1>
+            <p className="text-[17px] text-neutral-600 leading-relaxed">
+              Meet the organisations and communities driving AI events across Sweden.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Organisers Grid */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      {/* Organisers List */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
         {organisers.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {organisers.map((organiser) => (
-              <div
-                key={organiser.name}
-                className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Building2 className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-semibold text-gray-900 truncate">
-                      {organiser.name}
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      {organiser.eventCount} upcoming event{organiser.eventCount !== 1 ? "s" : ""}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    {organiser.cities.slice(0, 3).map((city) => (
-                      <span
-                        key={city}
-                        className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs"
-                      >
-                        {city}
-                      </span>
-                    ))}
-                    {organiser.cities.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-500 rounded text-xs">
-                        +{organiser.cities.length - 3} more
-                      </span>
-                    )}
-                  </div>
-
-                  {organiser.upcomingEvent && (
-                    <Link
-                      href={`/events/${organiser.upcomingEvent.slug}`}
-                      className="block p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group"
-                    >
-                      <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        Next event
-                      </p>
-                      <p className="text-sm font-medium text-gray-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                        {organiser.upcomingEvent.name}
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {new Date(organiser.upcomingEvent.date).toLocaleDateString("en-SE", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </p>
-                    </Link>
-                  )}
-                </div>
-
-                <Link
-                  href={`/?search=${encodeURIComponent(organiser.name)}`}
-                  className="mt-4 flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 font-medium"
-                >
-                  View all events
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16">
-            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Building2 className="w-8 h-8 text-gray-400" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              No organisers found
-            </h3>
-            <p className="text-gray-600">
-              Check back soon as more events are added.
+          <>
+            <p className="text-[13px] text-neutral-500 mb-6">
+              {organisers.length} organiser{organisers.length !== 1 ? "s" : ""}
             </p>
+
+            <div className="space-y-3">
+              {organisers.map((organiser) => (
+                <div
+                  key={organiser.name}
+                  className="group bg-white rounded-lg border border-neutral-200/80 hover:border-neutral-300 p-5 sm:p-6 transition-all duration-300 hover:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)]"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-[15px] font-semibold text-neutral-900">
+                          {organiser.name}
+                        </h3>
+                        <span className="text-[12px] text-neutral-400 bg-neutral-100 px-2 py-0.5 rounded-full">
+                          {organiser.eventCount} event{organiser.eventCount !== 1 ? "s" : ""}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-[13px] text-neutral-500 mb-3">
+                        {organiser.cities.slice(0, 4).map((city, index) => (
+                          <span key={city} className="flex items-center gap-2">
+                            {city}
+                            {index < Math.min(organiser.cities.length - 1, 3) && (
+                              <span className="w-1 h-1 rounded-full bg-neutral-300" />
+                            )}
+                          </span>
+                        ))}
+                        {organiser.cities.length > 4 && (
+                          <span className="text-neutral-400">
+                            +{organiser.cities.length - 4} more
+                          </span>
+                        )}
+                      </div>
+
+                      {organiser.upcomingEvent && (
+                        <Link
+                          href={`/events/${organiser.upcomingEvent.slug}`}
+                          className="inline-flex items-center gap-2 text-[13px] text-neutral-600 hover:text-neutral-900 transition-colors duration-200"
+                        >
+                          <span className="text-neutral-400">Next:</span>
+                          <span className="line-clamp-1 max-w-[300px]">
+                            {organiser.upcomingEvent.name}
+                          </span>
+                          <span className="text-neutral-400">
+                            {new Date(organiser.upcomingEvent.date).toLocaleDateString("en-SE", {
+                              month: "short",
+                              day: "numeric",
+                            })}
+                          </span>
+                        </Link>
+                      )}
+                    </div>
+
+                    <Link
+                      href={`/?search=${encodeURIComponent(organiser.name)}`}
+                      className="text-[13px] text-neutral-500 hover:text-neutral-900 transition-colors duration-200 whitespace-nowrap flex items-center gap-1"
+                    >
+                      View all
+                      <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className="text-center py-24">
+            <h3 className="text-[17px] font-medium text-neutral-900 mb-2">No organisers found</h3>
+            <p className="text-[14px] text-neutral-500">Check back soon as more events are added.</p>
           </div>
         )}
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 text-center text-white">
-          <h2 className="text-2xl font-bold mb-3">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+        <div className="bg-white border border-neutral-200/80 rounded-lg p-8 sm:p-10 text-center">
+          <h2 className="text-[17px] font-semibold text-neutral-900 mb-2">
             Want to list your events?
           </h2>
-          <p className="text-blue-100 mb-6 max-w-lg mx-auto">
-            If you&apos;re organising AI events in Sweden, submit them to our platform
-            and reach the growing AI community.
+          <p className="text-[14px] text-neutral-500 mb-6 max-w-md mx-auto">
+            If you&apos;re organising AI events in Sweden, submit them to our platform.
           </p>
           <Link
             href="/submit"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-colors"
+            className="inline-flex items-center gap-2 h-10 px-5 bg-neutral-900 text-white text-[13px] font-medium rounded-md hover:bg-neutral-800 transition-all duration-200"
           >
             Submit an Event
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
           </Link>
         </div>
       </section>
