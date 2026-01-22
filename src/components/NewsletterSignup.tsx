@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Check } from "lucide-react";
+import { Check } from "lucide-react";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
@@ -12,8 +12,6 @@ export default function NewsletterSignup() {
     if (!email) return;
 
     setStatus("loading");
-
-    // For MVP, just simulate success - actual email capture would be Phase 2
     await new Promise((resolve) => setTimeout(resolve, 500));
     setStatus("success");
     setEmail("");
@@ -21,55 +19,36 @@ export default function NewsletterSignup() {
 
   if (status === "success") {
     return (
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 text-center">
-        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Check className="w-6 h-6 text-green-600" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          You&apos;re subscribed!
-        </h3>
-        <p className="text-gray-600">
-          We&apos;ll send you updates about new AI events in Sweden.
-        </p>
+      <div className="flex items-center justify-center gap-2 py-4">
+        <Check className="w-4 h-4 text-emerald-600" />
+        <p className="text-sm text-gray-600">You&apos;re subscribed. We&apos;ll keep you updated.</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8">
-      <div className="max-w-xl mx-auto text-center">
-        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Mail className="w-6 h-6 text-blue-600" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          Never miss an event
-        </h3>
-        <p className="text-gray-600 mb-6">
-          Get weekly updates on AI events happening across Sweden.
-        </p>
-
-        <form onSubmit={handleSubmit} className="flex gap-3 max-w-md mx-auto">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
-            className="flex-1 px-4 py-3 bg-white border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          <button
-            type="submit"
-            disabled={status === "loading"}
-            className="px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {status === "loading" ? "..." : "Subscribe"}
-          </button>
-        </form>
-
-        <p className="text-gray-500 text-sm mt-4">
-          No spam, unsubscribe anytime.
-        </p>
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <p className="text-sm font-medium text-gray-900">Stay updated</p>
+        <p className="text-sm text-gray-500">Get notified about new AI events in Sweden.</p>
       </div>
+      <form onSubmit={handleSubmit} className="flex gap-2 w-full sm:w-auto">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email address"
+          required
+          className="flex-1 sm:w-64 px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-300"
+        />
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="px-4 py-2 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
+        >
+          {status === "loading" ? "..." : "Subscribe"}
+        </button>
+      </form>
     </div>
   );
 }

@@ -100,88 +100,88 @@ export default function FilterBar({
 
   const monthOptions = getMonthOptions();
 
+  const selectClass = "px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg text-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-300 cursor-pointer";
+
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap items-center gap-2">
+      <select
+        value={currentCity || ""}
+        onChange={(e) => updateFilter("city", e.target.value || null)}
+        className={selectClass}
+      >
+        <option value="">City</option>
+        {cities.map((city) => (
+          <option key={city} value={city}>
+            {city}
+          </option>
+        ))}
+      </select>
+
+      {showDateFilter && (
         <select
-          value={currentCity || ""}
-          onChange={(e) => updateFilter("city", e.target.value || null)}
-          className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          value={currentMonth || ""}
+          onChange={(e) => updateFilter("month", e.target.value || null)}
+          className={selectClass}
         >
-          <option value="">All Cities</option>
-          {cities.map((city) => (
-            <option key={city} value={city}>
-              {city}
+          <option value="">Month</option>
+          {monthOptions.map((month) => (
+            <option key={month.value} value={month.value}>
+              {month.label}
             </option>
           ))}
         </select>
+      )}
 
-        {showDateFilter && (
-          <select
-            value={currentMonth || ""}
-            onChange={(e) => updateFilter("month", e.target.value || null)}
-            className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">All Months</option>
-            {monthOptions.map((month) => (
-              <option key={month.value} value={month.value}>
-                {month.label}
-              </option>
-            ))}
-          </select>
-        )}
+      <select
+        value={currentCategory || ""}
+        onChange={(e) => updateFilter("category", e.target.value || null)}
+        className={selectClass}
+      >
+        <option value="">Category</option>
+        {categories.map((category) => (
+          <option key={category} value={category}>
+            {category}
+          </option>
+        ))}
+      </select>
 
+      {showTypeFilter && (
         <select
-          value={currentCategory || ""}
-          onChange={(e) => updateFilter("category", e.target.value || null)}
-          className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          value={currentType || ""}
+          onChange={(e) => updateFilter("type", e.target.value || null)}
+          className={selectClass}
         >
-          <option value="">All Categories</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
+          <option value="">Type</option>
+          {eventTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
             </option>
           ))}
         </select>
+      )}
 
-        {showTypeFilter && (
-          <select
-            value={currentType || ""}
-            onChange={(e) => updateFilter("type", e.target.value || null)}
-            className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">All Types</option>
-            {eventTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-        )}
+      <select
+        value={currentPrice || ""}
+        onChange={(e) => updateFilter("price", e.target.value || null)}
+        className={selectClass}
+      >
+        <option value="">Price</option>
+        {prices.map((price) => (
+          <option key={price} value={price}>
+            {price}
+          </option>
+        ))}
+      </select>
 
-        <select
-          value={currentPrice || ""}
-          onChange={(e) => updateFilter("price", e.target.value || null)}
-          className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      {hasFilters && (
+        <button
+          onClick={clearAllFilters}
+          className="flex items-center gap-1 px-3 py-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
         >
-          <option value="">All Prices</option>
-          {prices.map((price) => (
-            <option key={price} value={price}>
-              {price}
-            </option>
-          ))}
-        </select>
-
-        {hasFilters && (
-          <button
-            onClick={clearAllFilters}
-            className="flex items-center gap-1 px-4 py-2.5 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <X className="w-4 h-4" />
-            Clear filters
-          </button>
-        )}
-      </div>
+          <X className="w-3.5 h-3.5" />
+          Clear
+        </button>
+      )}
     </div>
   );
 }
