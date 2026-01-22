@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { ExternalLink, ArrowRight } from "lucide-react";
+import PartnerLogo from "@/components/PartnerLogo";
 
 export const metadata: Metadata = {
   title: "AI Partners & Consultants | AI Journalen",
@@ -7,13 +8,15 @@ export const metadata: Metadata = {
     "Discover Swedish companies specializing in AI implementation, automation, and digital transformation to help your business leverage artificial intelligence.",
 };
 
-interface Partner {
+export interface Partner {
   name: string;
   tagline: string;
   description: string;
   services: string[];
   url: string;
   highlight?: string;
+  logoUrl?: string;
+  logoColor: string;
 }
 
 const partners: Partner[] = [
@@ -25,6 +28,8 @@ const partners: Partner[] = [
     services: ["Commerce Analytics", "Marketing Mix Modeling", "Profit Prediction", "AI-powered Insights"],
     url: "https://dema.ai",
     highlight: "83% contribution margin growth for clients",
+    logoUrl: "https://dema.ai/favicon.svg",
+    logoColor: "bg-violet-500",
   },
   {
     name: "Epiminds",
@@ -34,6 +39,7 @@ const partners: Partner[] = [
     services: ["Marketing Automation", "AI Agents", "Campaign Optimization", "Workflow Automation"],
     url: "https://epiminds.com",
     highlight: "$6.6M raised from Lightspeed",
+    logoColor: "bg-blue-500",
   },
   {
     name: "Etals",
@@ -42,6 +48,7 @@ const partners: Partner[] = [
       "AI-powered solutions for eCommerce businesses. Automates copywriting, translations, product enrichment, and keyword research with continuous learning from human validation.",
     services: ["eCommerce AI", "Automated Copywriting", "SEO Optimization", "Product Data Enrichment"],
     url: "https://etals.com",
+    logoColor: "bg-emerald-500",
   },
   {
     name: "Normain",
@@ -50,6 +57,7 @@ const partners: Partner[] = [
       "Specialized AI platform focused on intelligent data extraction capabilities. Helps businesses automate the extraction and processing of information from various sources.",
     services: ["Data Extraction", "Document Processing", "AI Automation", "Information Processing"],
     url: "https://normain.com",
+    logoColor: "bg-orange-500",
   },
   {
     name: "Kiri Media",
@@ -59,6 +67,7 @@ const partners: Partner[] = [
     services: ["Performance Marketing", "AI Implementation", "Growth Strategy", "Analytics Systems"],
     url: "https://kirimedia.co",
     highlight: "Stockholm-based agency",
+    logoColor: "bg-rose-500",
   },
 ];
 
@@ -92,44 +101,50 @@ export default function PartnersPage() {
               key={partner.name}
               className="group bg-white rounded-lg border border-neutral-200/80 hover:border-neutral-300 p-5 sm:p-6 transition-all duration-300 hover:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)]"
             >
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-5">
+                <PartnerLogo name={partner.name} logoUrl={partner.logoUrl} logoColor={partner.logoColor} />
+
                 <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
-                    <h3 className="text-[15px] font-semibold text-neutral-900">{partner.name}</h3>
-                    <span className="text-[13px] text-neutral-500">{partner.tagline}</span>
-                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
+                        <h3 className="text-[15px] font-semibold text-neutral-900">{partner.name}</h3>
+                        <span className="text-[13px] text-neutral-500">{partner.tagline}</span>
+                      </div>
 
-                  {partner.highlight && (
-                    <p className="text-[12px] text-emerald-600 font-medium mb-2.5">
-                      {partner.highlight}
-                    </p>
-                  )}
+                      {partner.highlight && (
+                        <p className="text-[12px] text-emerald-600 font-medium mb-2.5">
+                          {partner.highlight}
+                        </p>
+                      )}
 
-                  <p className="text-[13px] text-neutral-600 mb-4 line-clamp-2 leading-relaxed">
-                    {partner.description}
-                  </p>
+                      <p className="text-[13px] text-neutral-600 mb-4 line-clamp-2 leading-relaxed">
+                        {partner.description}
+                      </p>
 
-                  <div className="flex flex-wrap gap-1.5">
-                    {partner.services.map((service) => (
-                      <span
-                        key={service}
-                        className="px-2.5 py-1 bg-neutral-100 text-neutral-600 text-[12px] rounded-md"
-                      >
-                        {service}
-                      </span>
-                    ))}
+                      <div className="flex flex-wrap gap-1.5">
+                        {partner.services.map((service) => (
+                          <span
+                            key={service}
+                            className="px-2.5 py-1 bg-neutral-100 text-neutral-600 text-[12px] rounded-md"
+                          >
+                            {service}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <a
+                      href={partner.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[13px] text-neutral-500 hover:text-neutral-900 transition-colors duration-200 whitespace-nowrap"
+                    >
+                      Visit website
+                      <ExternalLink className="w-3.5 h-3.5" strokeWidth={1.5} />
+                    </a>
                   </div>
                 </div>
-
-                <a
-                  href={partner.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[13px] text-neutral-500 hover:text-neutral-900 transition-colors duration-200 whitespace-nowrap sm:mt-1"
-                >
-                  Visit website
-                  <ExternalLink className="w-3.5 h-3.5" strokeWidth={1.5} />
-                </a>
               </div>
             </article>
           ))}

@@ -20,6 +20,51 @@ interface OrganiserData {
   };
 }
 
+// Color palette for organiser logos
+const logoColors = [
+  "bg-violet-500",
+  "bg-blue-500",
+  "bg-emerald-500",
+  "bg-orange-500",
+  "bg-rose-500",
+  "bg-cyan-500",
+  "bg-amber-500",
+  "bg-indigo-500",
+  "bg-pink-500",
+  "bg-teal-500",
+  "bg-red-500",
+  "bg-lime-500",
+];
+
+// Generate consistent color based on organiser name
+function getOrganiserColor(name: string): string {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return logoColors[Math.abs(hash) % logoColors.length];
+}
+
+// Get initials from organiser name (up to 2 characters)
+function getInitials(name: string): string {
+  const words = name.trim().split(/\s+/);
+  if (words.length === 1) {
+    return words[0].substring(0, 2).toUpperCase();
+  }
+  return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase();
+}
+
+function OrganiserLogo({ name }: { name: string }) {
+  const color = getOrganiserColor(name);
+  const initials = getInitials(name);
+
+  return (
+    <div className={`w-12 h-12 rounded-lg ${color} flex items-center justify-center flex-shrink-0`}>
+      <span className="text-[14px] font-semibold text-white tracking-tight">{initials}</span>
+    </div>
+  );
+}
+
 export default async function OrganisersPage() {
   const events = await getEvents();
 
@@ -93,59 +138,65 @@ export default async function OrganisersPage() {
                   key={organiser.name}
                   className="group bg-white rounded-lg border border-neutral-200/80 hover:border-neutral-300 p-5 sm:p-6 transition-all duration-300 hover:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)]"
                 >
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <OrganiserLogo name={organiser.name} />
+
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-[15px] font-semibold text-neutral-900">
-                          {organiser.name}
-                        </h3>
-                        <span className="text-[12px] text-neutral-400 bg-neutral-100 px-2 py-0.5 rounded-full">
-                          {organiser.eventCount} event{organiser.eventCount !== 1 ? "s" : ""}
-                        </span>
-                      </div>
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="text-[15px] font-semibold text-neutral-900">
+                              {organiser.name}
+                            </h3>
+                            <span className="text-[12px] text-neutral-400 bg-neutral-100 px-2 py-0.5 rounded-full">
+                              {organiser.eventCount} event{organiser.eventCount !== 1 ? "s" : ""}
+                            </span>
+                          </div>
 
-                      <div className="flex items-center gap-2 text-[13px] text-neutral-500 mb-3">
-                        {organiser.cities.slice(0, 4).map((city, index) => (
-                          <span key={city} className="flex items-center gap-2">
-                            {city}
-                            {index < Math.min(organiser.cities.length - 1, 3) && (
-                              <span className="w-1 h-1 rounded-full bg-neutral-300" />
+                          <div className="flex items-center gap-2 text-[13px] text-neutral-500 mb-3">
+                            {organiser.cities.slice(0, 4).map((city, index) => (
+                              <span key={city} className="flex items-center gap-2">
+                                {city}
+                                {index < Math.min(organiser.cities.length - 1, 3) && (
+                                  <span className="w-1 h-1 rounded-full bg-neutral-300" />
+                                )}
+                              </span>
+                            ))}
+                            {organiser.cities.length > 4 && (
+                              <span className="text-neutral-400">
+                                +{organiser.cities.length - 4} more
+                              </span>
                             )}
-                          </span>
-                        ))}
-                        {organiser.cities.length > 4 && (
-                          <span className="text-neutral-400">
-                            +{organiser.cities.length - 4} more
-                          </span>
-                        )}
-                      </div>
+                          </div>
 
-                      {organiser.upcomingEvent && (
+                          {organiser.upcomingEvent && (
+                            <Link
+                              href={`/events/${organiser.upcomingEvent.slug}`}
+                              className="inline-flex items-center gap-2 text-[13px] text-neutral-600 hover:text-neutral-900 transition-colors duration-200"
+                            >
+                              <span className="text-neutral-400">Next:</span>
+                              <span className="line-clamp-1 max-w-[300px]">
+                                {organiser.upcomingEvent.name}
+                              </span>
+                              <span className="text-neutral-400">
+                                {new Date(organiser.upcomingEvent.date).toLocaleDateString("en-SE", {
+                                  month: "short",
+                                  day: "numeric",
+                                })}
+                              </span>
+                            </Link>
+                          )}
+                        </div>
+
                         <Link
-                          href={`/events/${organiser.upcomingEvent.slug}`}
-                          className="inline-flex items-center gap-2 text-[13px] text-neutral-600 hover:text-neutral-900 transition-colors duration-200"
+                          href={`/events?search=${encodeURIComponent(organiser.name)}`}
+                          className="text-[13px] text-neutral-500 hover:text-neutral-900 transition-colors duration-200 whitespace-nowrap flex items-center gap-1"
                         >
-                          <span className="text-neutral-400">Next:</span>
-                          <span className="line-clamp-1 max-w-[300px]">
-                            {organiser.upcomingEvent.name}
-                          </span>
-                          <span className="text-neutral-400">
-                            {new Date(organiser.upcomingEvent.date).toLocaleDateString("en-SE", {
-                              month: "short",
-                              day: "numeric",
-                            })}
-                          </span>
+                          View all
+                          <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </Link>
-                      )}
+                      </div>
                     </div>
-
-                    <Link
-                      href={`/?search=${encodeURIComponent(organiser.name)}`}
-                      className="text-[13px] text-neutral-500 hover:text-neutral-900 transition-colors duration-200 whitespace-nowrap flex items-center gap-1"
-                    >
-                      View all
-                      <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
-                    </Link>
                   </div>
                 </div>
               ))}
